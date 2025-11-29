@@ -90,7 +90,7 @@ export default function Header() {
                             )} gap-1`}
                         >
                             <div>
-                                <SettingsToggle language={selectedLang} />
+                                <SettingsToggle />
                             </div>
                             <div
                                 className={`flex ${getResponsiveClass(

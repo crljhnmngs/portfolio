@@ -3,33 +3,14 @@ import { ReactTyped } from 'react-typed';
 import ReactLottie from 'lottie-react';
 import codingAnimation from '../json/coding.json';
 import { SlideLeft, SlideRight } from '../animation/Slide';
-import { socials } from '../const';
-import { saveAs } from 'file-saver';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { useApp } from '../contexts/AppContext';
+import { useSocialLinks } from '../hooks/useSocialLinks';
 
 export default function Home() {
     const { t, i18n } = useTranslation();
-
-    const memoizedData = useMemo(() => {
-        return socials;
-    }, []);
-    const resumeUrl = 'Resume.pdf';
-
-    const handleDownload = async () => {
-        try {
-            const response = await fetch(resumeUrl);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const blob = await response.blob();
-            saveAs(blob, 'CarlJohn_Manigos_Resume.pdf');
-        } catch (error) {
-            toast.error('Something went wrong, please try again later', {
-                position: 'top-right',
-            });
-        }
-    };
+    const { generalInfo } = useApp();
+    const socials = useSocialLinks();
 
     return (
         <section
@@ -70,7 +51,7 @@ export default function Home() {
                         </p>
                     </div>
                     <div className="mt-8 flex gap-4 h-11 sm:h-[3.2rem] justify-start sm:justify-center home:justify-start w-[100%] sm:dark:text-white home:dark:text-black">
-                        {memoizedData.map((social) => (
+                        {socials.map((social) => (
                             <div
                                 className="w-full h-full max-w-14"
                                 key={social.name}
@@ -86,15 +67,16 @@ export default function Home() {
                         ))}
                     </div>
                     <div className="mt-8 flex w-full justify-start sm:justify-center home:justify-start">
-                        <button
-                            type="button"
-                            className={`home:w-[80%] w-[50%] max-w-56 h-[60px] text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base px-8 py-3 me-2 focus:outline-none ${
+                        <a
+                            href={generalInfo?.resumeUrl || '/'}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`home:w-[80%] w-[50%] max-w-56 h-[60px] text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base px-8 py-3 me-2 focus:outline-none inline-flex items-center justify-center ${
                                 i18n.language === 'ar' && 'text-right'
                             }`}
-                            onClick={handleDownload}
                         >
                             {t('hero.resume')}
-                        </button>
+                        </a>
                     </div>
                 </SlideLeft>
                 <SlideRight
