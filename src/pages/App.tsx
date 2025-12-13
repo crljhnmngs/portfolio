@@ -9,6 +9,7 @@ import Projects from '../components/Projects';
 import { AppInitializer } from '../components/AppInitializer';
 import { AppProvider } from '../contexts/AppContext';
 import { useLanguageStore } from '../stores/languageStore';
+import { LocalizedInfoProvider } from '../contexts/LocalizedInfoContext';
 
 export default function App() {
     const setSelectedLang = useLanguageStore((state) => state.setSelectedLang);
@@ -28,17 +29,19 @@ export default function App() {
     return (
         <AppInitializer onLanguageLoaded={handleLanguageLoaded}>
             <AppProvider>
-                <div className="font-poppins">
-                    <Header />
-                    <div className="overflow-hidden">
-                        <Home />
-                        <About />
-                        <Skills />
-                        <Timeline />
-                        <Projects />
-                        <Contact />
+                <LocalizedInfoProvider>
+                    <div className="font-poppins">
+                        <Header />
+                        <div className="overflow-hidden">
+                            <Home />
+                            <About />
+                            <Skills />
+                            <Timeline />
+                            <Projects />
+                            <Contact />
+                        </div>
                     </div>
-                </div>
+                </LocalizedInfoProvider>
             </AppProvider>
         </AppInitializer>
     );

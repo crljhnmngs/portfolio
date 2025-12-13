@@ -35,3 +35,17 @@ export type SupportedLanguage = {
 export type SupportedLanguagesApiResponse = {
     supportedLanguages: SupportedLanguage[];
 };
+
+export type LocalizedInfo = {
+    id: string;
+    general_info_id: string | null;
+    full_name: string;
+    current_company: string | null;
+    current_role: string | null;
+    about_me: string | null;
+    address: string | null;
+};
+
+export type LocalizedInfoApiResponse = {
+    localizedInfo: LocalizedInfo | null;
+};

@@ -8,7 +8,7 @@
         "contact": "Makipag-ugnayan"
     },
     "hero": {
-        "greeting": "Hi, ako si Carl",
+        "greeting": "Hi, ako si {{name}}",
         "roles": [
             "Software Engineer",
             "Front End Developer",

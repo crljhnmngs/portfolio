@@ -9,13 +9,15 @@ import { useSocialLinks } from '../hooks/useSocialLinks';
 import { useApp } from '../contexts/AppContext';
 import { Loader } from './Loader';
 import toast from 'react-hot-toast';
+import { useLocalizedInfo } from '../contexts/LocalizedInfoContext';
 
 export default function Contact() {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const { t, i18n } = useTranslation();
     const socials = useSocialLinks();
     const { generalInfo } = useApp();
-
+    const { localizedInfo, isLoading: isLocalizedInfoLoading } =
+        useLocalizedInfo();
     const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -188,12 +190,15 @@ export default function Contact() {
                             <p className="text-xl sm:text-3xl font-bold text-gray-600 dark:text-gray-300">
                                 {t('contact.addressHeading')}
                             </p>
-                            <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase">
-                                <Trans
-                                    i18nKey="contact.address"
-                                    components={[<></>, <br />]}
-                                />
-                            </p>
+                            {isLocalizedInfoLoading ? (
+                                <div className="flex w-full justify-end">
+                                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded animate-pulse w-2/6" />
+                                </div>
+                            ) : (
+                                <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase">
+                                    {localizedInfo?.address}
+                                </p>
+                            )}
                         </div>
                         <div className="flex flex-col mt-11">
                             <p className="text-xl sm:text-3xl font-bold text-gray-600 dark:text-gray-300">

@@ -8,7 +8,7 @@
         "contact": "Contacto"
     },
     "hero": {
-        "greeting": "Hola, soy Carl",
+        "greeting": "Hola, soy {{name}}",
         "roles": [
             "Ingeniero de Software",
             "Desarrollador Front End",

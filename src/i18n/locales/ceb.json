@@ -8,7 +8,7 @@
         "contact": "Kontak"
     },
     "hero": {
-        "greeting": "Kumusta, ako si Carl",
+        "greeting": "Kumusta, ako si {{name}}",
         "roles": [
             "Software Engineer",
             "Front End Developer",
