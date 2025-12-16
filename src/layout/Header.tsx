@@ -9,34 +9,28 @@ import { useUIStore } from '../stores/uiStore';
 import { useLanguageStore } from '../stores/languageStore';
 
 export default function Header() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const selectedLang = useLanguageStore((state) => state.selectedLang);
     const isOpen = useUIStore((state) => state.isNavbarOpen);
     const toggleNavbar = useUIStore((state) => state.toggleNavbar);
-
-    const getResponsiveClass = (baseClass: string) => {
-        switch (selectedLang) {
-            case 'ceb':
-            case 'fr':
-                return `navCeb:${baseClass}`;
-            case 'fil':
-                return `navFil:${baseClass}`;
-            case 'es':
-                return `navEs:${baseClass}`;
-            case 'ja':
-                return `navJp:${baseClass}`;
-            case 'pt':
-                return `navPt:${baseClass}`;
-            default:
-                return `nav:${baseClass}`;
-        }
-    };
 
     return (
         <React.Fragment>
             <nav
                 className={`bg-white dark:bg-gray-700 sticky z-50 w-full h-[70px] flex max-screen:justify-center top-0 
-                    ${getResponsiveClass('px-16')} px-5 shadow-lg`}
+                    ${
+                        selectedLang === 'ceb' || selectedLang === 'fr'
+                            ? 'navCeb:px-16'
+                            : selectedLang === 'fil'
+                            ? 'navFil:px-16'
+                            : selectedLang === 'es'
+                            ? 'navEs:px-16'
+                            : selectedLang === 'ja'
+                            ? 'navJp:px-16'
+                            : selectedLang === 'pt'
+                            ? 'navPt:px-16'
+                            : 'nav:px-16'
+                    } px-5 shadow-lg`}
             >
                 <div className="w-full max-screen:max-w-maxDesktop h-full flex flex-row justify-between items-center">
                     <div>
@@ -50,18 +44,64 @@ export default function Header() {
                             CrlJhnMngs
                         </Link>
                     </div>
-                    <div className={`${getResponsiveClass('flex')} gap-4 mt-1`}>
+                    <div
+                        className={`${
+                            selectedLang === 'ceb' || selectedLang === 'fr'
+                                ? 'navCeb:flex'
+                                : selectedLang === 'fil'
+                                ? 'navFil:flex'
+                                : selectedLang === 'es'
+                                ? 'navEs:flex'
+                                : selectedLang === 'ja'
+                                ? 'navJp:flex'
+                                : selectedLang === 'pt'
+                                ? 'navPt:flex'
+                                : 'nav:flex'
+                        } gap-4 mt-1`}
+                    >
                         <div
-                            className={`width-auto hidden ${getResponsiveClass(
-                                'flex'
-                            )} gap-4 mt-1 w-full`}
+                            className={`width-auto hidden ${
+                                selectedLang === 'ceb' || selectedLang === 'fr'
+                                    ? 'navCeb:flex'
+                                    : selectedLang === 'fil'
+                                    ? 'navFil:flex'
+                                    : selectedLang === 'es'
+                                    ? 'navEs:flex'
+                                    : selectedLang === 'ja'
+                                    ? 'navJp:flex'
+                                    : selectedLang === 'pt'
+                                    ? 'navPt:flex'
+                                    : 'nav:flex'
+                            } gap-4 mt-1 w-full`}
                         >
                             <ul
-                                className={`flex ${getResponsiveClass(
-                                    'flex-row'
-                                )} flex-col items-center ${getResponsiveClass(
-                                    'gap-3'
-                                )} gap-1 ${
+                                className={`flex ${
+                                    selectedLang === 'ceb' ||
+                                    selectedLang === 'fr'
+                                        ? 'navCeb:flex-row'
+                                        : selectedLang === 'fil'
+                                        ? 'navFil:flex-row'
+                                        : selectedLang === 'es'
+                                        ? 'navEs:flex-row'
+                                        : selectedLang === 'ja'
+                                        ? 'navJp:flex-row'
+                                        : selectedLang === 'pt'
+                                        ? 'navPt:flex-row'
+                                        : 'nav:flex-row'
+                                } flex-col items-center ${
+                                    selectedLang === 'ceb' ||
+                                    selectedLang === 'fr'
+                                        ? 'navCeb:gap-3'
+                                        : selectedLang === 'fil'
+                                        ? 'navFil:gap-3'
+                                        : selectedLang === 'es'
+                                        ? 'navEs:gap-3'
+                                        : selectedLang === 'ja'
+                                        ? 'navJp:gap-3'
+                                        : selectedLang === 'pt'
+                                        ? 'navPt:gap-3'
+                                        : 'nav:gap-3'
+                                } gap-1 ${
                                     selectedLang === 'ar' && 'font-arabic'
                                 }`}
                             >
@@ -85,17 +125,38 @@ export default function Header() {
                             </ul>
                         </div>
                         <div
-                            className={`flex items-center ${getResponsiveClass(
-                                'gap-2'
-                            )} gap-1`}
+                            className={`flex items-center ${
+                                selectedLang === 'ceb' || selectedLang === 'fr'
+                                    ? 'navCeb:gap-2'
+                                    : selectedLang === 'fil'
+                                    ? 'navFil:gap-2'
+                                    : selectedLang === 'es'
+                                    ? 'navEs:gap-2'
+                                    : selectedLang === 'ja'
+                                    ? 'navJp:gap-2'
+                                    : selectedLang === 'pt'
+                                    ? 'navPt:gap-2'
+                                    : 'nav:gap-2'
+                            } gap-1`}
                         >
                             <div>
                                 <SettingsToggle />
                             </div>
                             <div
-                                className={`flex ${getResponsiveClass(
-                                    'hidden'
-                                )} dark:text-white`}
+                                className={`flex ${
+                                    selectedLang === 'ceb' ||
+                                    selectedLang === 'fr'
+                                        ? 'navCeb:hidden'
+                                        : selectedLang === 'fil'
+                                        ? 'navFil:hidden'
+                                        : selectedLang === 'es'
+                                        ? 'navEs:hidden'
+                                        : selectedLang === 'ja'
+                                        ? 'navJp:hidden'
+                                        : selectedLang === 'pt'
+                                        ? 'navPt:hidden'
+                                        : 'nav:hidden'
+                                } dark:text-white`}
                             >
                                 <Hamburger
                                     toggled={isOpen}
@@ -114,9 +175,19 @@ export default function Header() {
                         initial={{ x: 100 }}
                         animate={{ x: 0, transition: { type: 'spring' } }}
                         exit={{ x: 200, transition: { type: 'spring' } }}
-                        className={`bg-white ${getResponsiveClass(
-                            'hidden'
-                        )} dark:bg-gray-700 p-2 z-50 fixed top-[70px] mt-2 rounded-lg shadow-lg right-2 block w-40 h-auto ${
+                        className={`bg-white ${
+                            selectedLang === 'ceb' || selectedLang === 'fr'
+                                ? 'navCeb:hidden'
+                                : selectedLang === 'fil'
+                                ? 'navFil:hidden'
+                                : selectedLang === 'es'
+                                ? 'navEs:hidden'
+                                : selectedLang === 'ja'
+                                ? 'navJp:hidden'
+                                : selectedLang === 'pt'
+                                ? 'navPt:hidden'
+                                : 'nav:hidden'
+                        } dark:bg-gray-700 p-2 z-50 fixed top-[70px] mt-2 rounded-lg shadow-lg right-2 block w-40 h-auto ${
                             selectedLang === 'ar' && 'font-arabic'
                         }`}
                     >
@@ -130,7 +201,7 @@ export default function Header() {
                                     spy={true}
                                     smooth={true}
                                     offset={-70}
-                                    onClick={() => toggleNavbar}
+                                    onClick={toggleNavbar}
                                 >
                                     <li>{t(section.nameKey)}</li>
                                 </Link>
