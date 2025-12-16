@@ -26,7 +26,7 @@ export default function Home() {
                     className="h-auto sm:h-[433px] home:h-auto home:max-w-[40%] w-full home:px-0 px-5 flex flex-col justify-center sm:items-center items-start home:items-start "
                     delay={0.5}
                 >
-                    <div className="w-full">
+                    <div className={`${isLoading ? 'w-full' : ''} `}>
                         {isLoading ? (
                             <div className="animate-pulse space-y-3">
                                 <div className="h-8 sm:h-10 home:h-11 w-[80%] bg-gray-300 dark:bg-gray-700 rounded" />
