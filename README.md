@@ -4,15 +4,15 @@ This is my personal web portfolio, showcasing my projects and skills.
 
 ## 🚀 Live Demo
 
-Check out the live version: [crljhnmngs](https://crljhnmngs.vercel.app)
+Check out the live version: [crljhnmngs](https://crljhnmng.dev/)
 
 ## 🛠 Tech Stack
 
-- **Framework**: [React](https://reactjs.org/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Type Checking**: [TypeScript](https://www.typescriptlang.org/)
+-   **Framework**: [React](https://reactjs.org/)
+-   **Build Tool**: [Vite](https://vitejs.dev/)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+-   **Animations**: [Framer Motion](https://www.framer.com/motion/)
+-   **Type Checking**: [TypeScript](https://www.typescriptlang.org/)
 
 ## 📦 Getting Started
 
@@ -20,24 +20,24 @@ To run this project locally:
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/crljhnmngs/Portfolio.git
-   cd Portfolio
-   ```
+    ```bash
+    git clone https://github.com/crljhnmngs/portfolio.git
+    cd portfolio
+    ```
 
 2. **Install dependencies:**
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 3. **Start the development server:**
 
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
-   Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
+    Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
 
 ## 🔨 Building for Production
 
@@ -55,15 +55,15 @@ This project is hosted on [Vercel](https://vercel.com/). To deploy:
 
 1. **Install Vercel CLI:**
 
-   ```bash
-   npm install -g vercel
-   ```
+    ```bash
+    npm install -g vercel
+    ```
 
 2. **Deploy the project:**
 
-   ```bash
-   vercel
-   ```
+    ```bash
+    vercel
+    ```
 
 Follow the prompts to complete the deployment.
 
@@ -73,21 +73,20 @@ This project was originally bootstrapped with Create React App and has been migr
 
 ### Key Changes:
 
-- Replaced `react-scripts` with Vite.
-- Updated `package.json` scripts:
+-   Replaced `react-scripts` with Vite.
+-   Updated `package.json` scripts:
 
-  ```json
-  {
-    "scripts": {
-      "dev": "vite",
-      "build": "vite build",
-      "serve": "vite preview"
+    ```json
+    {
+        "scripts": {
+            "dev": "vite",
+            "build": "vite build",
+            "serve": "vite preview"
+        }
     }
-  }
-  ```
+    ```
 
-- Added `vite.config.ts` for Vite-specific configuration.
-- Updated import paths for assets based on Vite’s requirements.
+-   Added `vite.config.ts` for Vite-specific configuration.
+-   Updated import paths for assets based on Vite’s requirements.
 
 For more details, check out the [Vite Migration Guide](https://vitejs.dev/guide/migration-from-cra.html).
-
