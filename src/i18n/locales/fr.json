@@ -199,5 +199,9 @@
             "pt": "Portugais",
             "ar": "Arabe"
         }
+    },
+    "api": {
+        "error": "Échec du chargement du contenu. Veuillez réessayer plus tard.",
+        "empty": "Aucune information disponible."
     }
 }

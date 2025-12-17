@@ -199,5 +199,9 @@
             "pt": "Portuguese",
             "ar": "Arabic"
         }
+    },
+    "api": {
+        "error": "Napakyas ang pag-load sa sulod. Palihug sulayi pag-usab.",
+        "empty": "Walay magamit nga impormasyon."
     }
 }

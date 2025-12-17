@@ -16,8 +16,11 @@ export default function Contact() {
     const { t, i18n } = useTranslation();
     const socials = useSocialLinks();
     const { generalInfo } = useApp();
-    const { localizedInfo, isLoading: isLocalizedInfoLoading } =
-        useLocalizedInfo();
+    const {
+        localizedInfo,
+        isLoading: isLocalizedInfoLoading,
+        isError: isLocalizedInfoError,
+    } = useLocalizedInfo();
     const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -194,6 +197,14 @@ export default function Contact() {
                                 <div className="flex w-full justify-end">
                                     <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded animate-pulse w-2/6" />
                                 </div>
+                            ) : isLocalizedInfoError ||
+                              !localizedInfo?.address ? (
+                                <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase">
+                                    <Trans
+                                        i18nKey="contact.address"
+                                        components={[<></>, <br />]}
+                                    />
+                                </p>
                             ) : (
                                 <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase">
                                     {localizedInfo?.address}

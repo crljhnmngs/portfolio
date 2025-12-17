@@ -199,5 +199,9 @@
             "pt": "Português",
             "ar": "Árabe"
         }
+    },
+    "api": {
+        "error": "Falha ao carregar o conteúdo. Por favor, tente novamente mais tarde.",
+        "empty": "Nenhuma informação disponível."
     }
 }

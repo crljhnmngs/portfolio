@@ -31,6 +31,12 @@ export default function Home() {
                             <div className="animate-pulse space-y-3">
                                 <div className="h-8 sm:h-10 home:h-11 w-[80%] bg-gray-300 dark:bg-gray-700 rounded" />
                             </div>
+                        ) : !localizedInfo?.full_name ? (
+                            <p className="font-bold home:text-5xl sm:text-4xl text-3xl text-black dark:text-white sm:dark:text-white">
+                                {t('hero.greeting', {
+                                    name: 'Carl',
+                                })}
+                            </p>
                         ) : (
                             <p className="font-bold home:text-5xl sm:text-4xl text-3xl text-black dark:text-white sm:dark:text-white">
                                 {t('hero.greeting', {
@@ -59,6 +65,34 @@ export default function Home() {
                                 <div className="h-4 sm:h-5 home:h-6 w-[90%] bg-gray-300 dark:bg-gray-700 rounded" />
                                 <div className="h-4 sm:h-5 home:h-6 w-[70%] bg-gray-300 dark:bg-gray-700 rounded" />
                             </div>
+                        ) : !localizedInfo?.current_company &&
+                          !localizedInfo?.current_role ? (
+                            <p className="font-light home:text-lg sm:text-base text-sm text-start sm:text-center home:text-start dark:sm:text-white dark:text-white">
+                                {t('hero.description', {
+                                    company: import.meta.env
+                                        .VITE_CURRENTCOMPANY,
+                                    position: import.meta.env
+                                        .VITE_CURRENTPOSITION,
+                                })}
+                            </p>
+                        ) : !localizedInfo?.current_company &&
+                          localizedInfo?.current_role ? (
+                            <p className="font-light home:text-lg sm:text-base text-sm text-start sm:text-center home:text-start dark:sm:text-white dark:text-white">
+                                {t('hero.description', {
+                                    company: import.meta.env
+                                        .VITE_CURRENTCOMPANY,
+                                    position: localizedInfo?.current_role,
+                                })}
+                            </p>
+                        ) : !localizedInfo?.current_role &&
+                          localizedInfo?.current_company ? (
+                            <p className="font-light home:text-lg sm:text-base text-sm text-start sm:text-center home:text-start dark:sm:text-white dark:text-white">
+                                {t('hero.description', {
+                                    company: localizedInfo?.current_company,
+                                    position: import.meta.env
+                                        .VITE_CURRENTPOSITION,
+                                })}
+                            </p>
                         ) : (
                             <p className="font-light home:text-lg sm:text-base text-sm text-start sm:text-center home:text-start dark:sm:text-white dark:text-white">
                                 {t('hero.description', {

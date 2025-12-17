@@ -199,5 +199,9 @@
             "pt": "Portuguese",
             "ar": "Arabic"
         }
+    },
+    "api": {
+        "error": "Nabigong i-load ang nilalaman. Pakisubukang muli.",
+        "empty": "Walang magagamit na impormasyon."
     }
 }

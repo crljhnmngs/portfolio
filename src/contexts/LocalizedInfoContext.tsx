@@ -1,6 +1,4 @@
 import { createContext, useContext, ReactNode } from 'react';
-import { useGeneralInfo } from '../hooks/useGeneralInfo';
-import { useSupportedLanguages } from '../hooks/useSupportedLanguages';
 import { LocalizedInfo } from '../types/global';
 import { useLanguageStore } from '../stores/languageStore';
 import { useApp } from './AppContext';
@@ -9,6 +7,7 @@ import { useLocalizedInfoQuery } from '../hooks/useLocalizedInfoQuery';
 type LocalizedInfoContextType = {
     localizedInfo: LocalizedInfo | undefined;
     isLoading: boolean;
+    isError: boolean;
 };
 
 const LocalizeInfoContext = createContext<LocalizedInfoContextType | undefined>(
@@ -24,7 +23,7 @@ export const LocalizedInfoProvider = ({
 }: LocalizedInfoProviderProps) => {
     const { generalInfo } = useApp();
     const selectedLang = useLanguageStore((state) => state.selectedLang);
-    const { localizedInfo, isLoading } = useLocalizedInfoQuery(
+    const { localizedInfo, isLoading, isError } = useLocalizedInfoQuery(
         generalInfo?.id ?? '',
         selectedLang
     );
@@ -32,6 +31,7 @@ export const LocalizedInfoProvider = ({
     const value = {
         localizedInfo,
         isLoading,
+        isError,
     };
 
     return (
@@ -44,7 +44,9 @@ export const LocalizedInfoProvider = ({
 export const useLocalizedInfo = () => {
     const context = useContext(LocalizeInfoContext);
     if (!context) {
-        throw new Error('useLocalInfo must be used within LocalInfoProvider');
+        throw new Error(
+            'useLocalizedInfo must be used within LocalInfoProvider'
+        );
     }
     return context;
 };

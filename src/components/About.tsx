@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Me from '../assets/images/me.webp';
 import moment from 'moment';
 import { SlideLeft, SlideRight } from '../animation/Slide';
@@ -16,21 +16,27 @@ export default function About() {
             .diff(import.meta.env.VITE_YEARSOFEXPERIENCE, 'years', true)
             .toFixed(1)
     );
-    const { localizedInfo, isLoading } = useLocalizedInfo();
-    let aboutHtml = '';
+    const { localizedInfo, isLoading, isError } = useLocalizedInfo();
 
-    if (!isLoading) {
-        aboutHtml = localizedInfo?.about_me
-            ? draftToHtml(
-                  typeof localizedInfo.about_me === 'string'
-                      ? JSON.parse(localizedInfo.about_me)
-                      : localizedInfo.about_me
-              )
-            : '';
-        aboutHtml = aboutHtml
-            .replace('{age}', age.toString())
-            .replace('{experience}', yearsOfExperience.toString());
-    }
+    const aboutHtml = useMemo(() => {
+        if (isLoading || isError || !localizedInfo?.about_me) {
+            return '';
+        }
+
+        try {
+            const rawContent =
+                typeof localizedInfo.about_me === 'string'
+                    ? JSON.parse(localizedInfo.about_me)
+                    : localizedInfo.about_me;
+
+            return draftToHtml(rawContent)
+                .replace('{age}', age.toString())
+                .replace('{experience}', yearsOfExperience.toString());
+        } catch (err) {
+            console.error('about_me parse error', err);
+            return '';
+        }
+    }, [isLoading, isError, localizedInfo?.about_me, age, yearsOfExperience]);
 
     return (
         <section
@@ -79,6 +85,14 @@ export default function About() {
                                     <div className="h-4 w-[85%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
                                     <div className="h-4 w-[85%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
                                     <div className="h-4 w-[85%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                                </div>
+                            ) : isError ? (
+                                <div className="text-red-700 dark:text-red-500 text-base text-center">
+                                    <p>{t('api.error')}</p>
+                                </div>
+                            ) : !aboutHtml || aboutHtml.trim() === '' ? (
+                                <div className="text-black text-base dark:text-white text-center">
+                                    {t('api.empty')}
                                 </div>
                             ) : (
                                 <div

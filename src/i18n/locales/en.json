@@ -199,5 +199,9 @@
             "pt": "Portuguese",
             "ar": "Arabic"
         }
+    },
+    "api": {
+        "error": "Failed to load content. Please try again later.",
+        "empty": "No information available."
     }
 }
