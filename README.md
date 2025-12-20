@@ -27,24 +27,28 @@ To run this project locally:
 
 2. **Install dependencies:**
 
+    ```Bun
+    curl -fsSL https://bun.sh/install | bash
+    ```
+
     ```bash
-    npm install
+    bun install
     ```
 
 3. **Start the development server:**
 
     ```bash
-    npm run dev
+    bun run dev
     ```
 
-    Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
+    Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
 
 ## 🔨 Building for Production
 
 To create a production build:
 
 ```bash
-npm run build
+bun run build
 ```
 
 The optimized files will be in the `dist` folder.
@@ -56,7 +60,7 @@ This project is hosted on [Vercel](https://vercel.com/). To deploy:
 1. **Install Vercel CLI:**
 
     ```bash
-    npm install -g vercel
+    bun install -g vercel
     ```
 
 2. **Deploy the project:**
