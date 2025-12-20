@@ -11,8 +11,8 @@
         "greeting": "Hola, soy {{name}}",
         "roles": [
             "Ingeniero de Software",
-            "Desarrollador Front End",
-            "Desarrollador Full Stack"
+            "Desarrollador Web Front End",
+            "Desarrollador Web Full Stack"
         ],
         "description": "Soy un Desarrollador Web Front-End / Full-Stack. Actualmente trabajo en {{company}} como {{position}}.",
         "resume": "Currículum"

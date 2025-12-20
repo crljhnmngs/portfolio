@@ -7,12 +7,23 @@ import { useTranslation } from 'react-i18next';
 import { useApp } from '../contexts/AppContext';
 import { useSocialLinks } from '../hooks/useSocialLinks';
 import { useLocalizedInfo } from '../contexts/LocalizedInfoContext';
+import { useRoles } from '../hooks/useRoles';
+import { useLanguageStore } from '../stores/languageStore';
 
 export default function Home() {
     const { t, i18n } = useTranslation();
     const { generalInfo } = useApp();
-    const { localizedInfo, isLoading } = useLocalizedInfo();
+    const { localizedInfo, isLoading: isLocalizedInfoLoading } =
+        useLocalizedInfo();
     const socials = useSocialLinks();
+    const selectedLang = useLanguageStore((state) => state.selectedLang);
+    const { roles, isLoading: isRolesLoading } = useRoles(selectedLang);
+
+    const roleNames = useMemo<string[]>(() => {
+        if (!Array.isArray(roles)) return [];
+
+        return roles.map((r) => r.role_name).filter(Boolean);
+    }, [roles]);
 
     return (
         <section
@@ -26,8 +37,10 @@ export default function Home() {
                     className="h-auto sm:h-[433px] home:h-auto home:max-w-[40%] w-full home:px-0 px-5 flex flex-col justify-center sm:items-center items-start home:items-start "
                     delay={0.5}
                 >
-                    <div className={`${isLoading ? 'w-full' : ''} `}>
-                        {isLoading ? (
+                    <div
+                        className={`${isLocalizedInfoLoading ? 'w-full' : ''} `}
+                    >
+                        {isLocalizedInfoLoading ? (
                             <div className="animate-pulse space-y-3">
                                 <div className="h-8 sm:h-10 home:h-11 w-[80%] bg-gray-300 dark:bg-gray-700 rounded" />
                             </div>
@@ -46,20 +59,35 @@ export default function Home() {
                         )}
                     </div>
                     <div className="mt-1">
-                        <ReactTyped
-                            strings={
-                                t('hero.roles', {
-                                    returnObjects: true,
-                                }) as string[]
-                            }
-                            typeSpeed={50}
-                            backSpeed={60}
-                            loop
-                            className="font-bold home:text-5xl sm:text-4xl text-3xl text-[#3B82F6] text-start sm:text-center home:text-start"
-                        />
+                        {isRolesLoading ? (
+                            <div className="mt-1 flex items-center gap-2 animate-pulse">
+                                <div className="h-10 sm:h-12 home:h-14 w-[320px] bg-gray-300 dark:bg-gray-700 rounded" />
+                                <div className="h-10 sm:h-12 home:h-14 w-1 bg-gray-300 dark:bg-gray-700 rounded" />
+                            </div>
+                        ) : roleNames.length > 0 ? (
+                            <ReactTyped
+                                strings={roleNames}
+                                typeSpeed={50}
+                                backSpeed={60}
+                                loop
+                                className="font-bold home:text-5xl sm:text-4xl text-3xl text-[#3B82F6] text-start sm:text-center home:text-start"
+                            />
+                        ) : (
+                            <ReactTyped
+                                strings={
+                                    t('hero.roles', {
+                                        returnObjects: true,
+                                    }) as string[]
+                                }
+                                typeSpeed={50}
+                                backSpeed={60}
+                                loop
+                                className="font-bold home:text-5xl sm:text-4xl text-3xl text-[#3B82F6] text-start sm:text-center home:text-start"
+                            />
+                        )}
                     </div>
                     <div className="mt-6 w-full sm:w-1/2 home:w-[80%]">
-                        {isLoading ? (
+                        {isLocalizedInfoLoading ? (
                             <div className="animate-pulse space-y-3">
                                 <div className="h-4 sm:h-5 home:h-6 w-full bg-gray-300 dark:bg-gray-700 rounded" />
                                 <div className="h-4 sm:h-5 home:h-6 w-[90%] bg-gray-300 dark:bg-gray-700 rounded" />

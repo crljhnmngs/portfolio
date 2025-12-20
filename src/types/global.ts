@@ -49,3 +49,14 @@ export type LocalizedInfo = {
 export type LocalizedInfoApiResponse = {
     localizedInfo: LocalizedInfo | null;
 };
+
+export type TranslatedRole = {
+    id?: string;
+    general_info_id?: string | null;
+    language_code?: string | null;
+    role_name: string;
+};
+
+export type RolesApiResponse = {
+    roles: TranslatedRole[];
+};

@@ -11,8 +11,8 @@
         "greeting": "Kumusta, ako si {{name}}",
         "roles": [
             "Software Engineer",
-            "Front End Developer",
-            "Full Stack Developer"
+            "Front End Web Developer",
+            "Full-Stack Web Developer"
         ],
         "description": "Usa ako ka Front-End / Full-Stack Web Developer. Karon nagtrabaho ko sa {{company}} isip usa ka {{position}}.",
         "resume": "Resume"
