@@ -60,3 +60,15 @@ export type TranslatedRole = {
 export type RolesApiResponse = {
     roles: TranslatedRole[];
 };
+
+export type Skill = {
+    id: string;
+    name: string;
+    icon_url: string;
+    category: string;
+    created_at: string;
+};
+
+export type SkillsApiResponse = {
+    skills: Skill[];
+};
