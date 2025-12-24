@@ -199,5 +199,20 @@
     "api": {
         "error": "فشل تحميل المحتوى. يرجى المحاولة لاحقًا.",
         "empty": "لا توجد معلومات متاحة."
+    },
+    "months": {
+        "Present": "حتى الآن",
+        "January": "{{year}} يناير",
+        "February": "{{year}} فبراير",
+        "March": "{{year}} مارس",
+        "April": "{{year}} أبريل",
+        "May": "{{year}} مايو",
+        "June": "{{year}} يونيو",
+        "July": "{{year}} يوليو",
+        "August": "{{year}} أغسطس",
+        "September": "{{year}} سبتمبر",
+        "October": "{{year}} أكتوبر",
+        "November": "{{year}} نوفمبر",
+        "December": "{{year}} ديسمبر"
     }
 }

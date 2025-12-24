@@ -203,5 +203,20 @@
     "api": {
         "error": "コンテンツの読み込みに失敗しました。後でもう一度お試しください。",
         "empty": "利用可能な情報はありません。"
+    },
+    "months": {
+        "Present": "現在",
+        "January": "{{year}}年1月",
+        "February": "{{year}}年2月",
+        "March": "{{year}}年3月",
+        "April": "{{year}}年4月",
+        "May": "{{year}}年5月",
+        "June": "{{year}}年6月",
+        "July": "{{year}}年7月",
+        "August": "{{year}}年8月",
+        "September": "{{year}}年9月",
+        "October": "{{year}}年10月",
+        "November": "{{year}}年11月",
+        "December": "{{year}}年12月"
     }
 }

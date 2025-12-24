@@ -203,5 +203,20 @@
     "api": {
         "error": "Falha ao carregar o conteúdo. Por favor, tente novamente mais tarde.",
         "empty": "Nenhuma informação disponível."
+    },
+    "months": {
+        "Present": "Presente",
+        "January": "Janeiro {{year}}",
+        "February": "Fevereiro {{year}}",
+        "March": "Março {{year}}",
+        "April": "Abril {{year}}",
+        "May": "Maio {{year}}",
+        "June": "Junho {{year}}",
+        "July": "Julho {{year}}",
+        "August": "Agosto {{year}}",
+        "September": "Setembro {{year}}",
+        "October": "Outubro {{year}}",
+        "November": "Novembro {{year}}",
+        "December": "Dezembro {{year}}"
     }
 }

@@ -203,5 +203,20 @@
     "api": {
         "error": "Napakyas ang pag-load sa sulod. Palihug sulayi pag-usab.",
         "empty": "Walay magamit nga impormasyon."
+    },
+    "months": {
+        "Present": "Karon",
+        "January": "Enero {{year}}",
+        "February": "Pebrero {{year}}",
+        "March": "Marso {{year}}",
+        "April": "Abril {{year}}",
+        "May": "Mayo {{year}}",
+        "June": "Hunyo {{year}}",
+        "July": "Hulyo {{year}}",
+        "August": "Agosto {{year}}",
+        "September": "Septiyembre {{year}}",
+        "October": "Oktubre {{year}}",
+        "November": "Nobyembre {{year}}",
+        "December": "Disyembre {{year}}"
     }
 }
