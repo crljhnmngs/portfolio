@@ -3,7 +3,7 @@ type Links = {
     live?: string;
 };
 
-export type Project = {
+export type Projects = {
     name: string;
     image: string;
     about: string;
@@ -71,4 +71,37 @@ export type Skill = {
 
 export type SkillsApiResponse = {
     skills: Skill[];
+};
+
+export type Experience = {
+    id: string;
+    company: string;
+    role: string;
+    start_date: string;
+    end_date: string;
+    logo: string;
+    link: string;
+    description: string;
+    tech: string[];
+    sub_items?: SubItem[];
+};
+
+export type ExperiencesApiResponse = {
+    experiences: Experience[];
+};
+
+export type Project = {
+    id?: string;
+    description: string;
+    created_at?: string;
+    tech?: string[];
+};
+
+export type SubItem = {
+    id?: string;
+    position: string;
+    setup: string;
+    start_date: string;
+    end_date: string;
+    projects: Project[];
 };
