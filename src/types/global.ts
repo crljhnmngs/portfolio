@@ -105,3 +105,19 @@ export type SubItem = {
     end_date: string;
     projects: Project[];
 };
+
+export type Education = {
+    id: string;
+    school: string;
+    track: string;
+    course: string;
+    start_date: string;
+    end_date: string;
+    logo_url?: string;
+    language_code: string;
+    tech: string[];
+};
+
+export type EducationsApiResponse = {
+    educations: Education[];
+};
