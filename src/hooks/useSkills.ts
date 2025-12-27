@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../configs/api';
+import { apiCall } from '../configs/api';
 import { SkillsApiResponse, Skill } from '../types/global';
 
 export const useSkills = () => {
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ['skills'],
         queryFn: async () => {
-            const response = await api.get<SkillsApiResponse>('/api/skills');
+            const response = await apiCall.get<SkillsApiResponse>(
+                '/api/skills'
+            );
             return response.data;
         },
         staleTime: 10 * 60 * 1000, // 10 minutes

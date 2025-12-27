@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../configs/api';
+import { apiCall } from '../configs/api';
 import { ProjectsApiResponse } from '../types/global';
 
 export const useProjects = (languageCode: string) => {
@@ -9,11 +9,9 @@ export const useProjects = (languageCode: string) => {
     >({
         queryKey: ['projects', languageCode],
         queryFn: async () => {
-            const response = await api.get<ProjectsApiResponse>(
+            const response = await apiCall.get<ProjectsApiResponse>(
                 '/api/projects',
-                {
-                    params: { languageCode },
-                }
+                { languageCode }
             );
             return response.data;
         },

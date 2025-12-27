@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../configs/api';
+import { apiCall } from '../configs/api';
 import {
     SupportedLanguage,
     SupportedLanguagesApiResponse,
@@ -9,7 +9,7 @@ export const useSupportedLanguages = () => {
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ['supported-languages'],
         queryFn: async () => {
-            const response = await api.get<SupportedLanguagesApiResponse>(
+            const response = await apiCall.get<SupportedLanguagesApiResponse>(
                 '/api/supported-languages'
             );
             return response.data;
