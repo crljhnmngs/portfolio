@@ -3,17 +3,6 @@ type Links = {
     live?: string;
 };
 
-export type Projects = {
-    name: string;
-    image: string;
-    about: string;
-    tech: string[];
-    date: string;
-    new?: boolean;
-    dev?: boolean;
-    links: Links;
-};
-
 export type GeneralInfo = {
     id: string;
     email: string | null;
@@ -120,4 +109,33 @@ export type Education = {
 
 export type EducationsApiResponse = {
     educations: Education[];
+};
+
+export type Projects = {
+    id: string;
+    name: string;
+    image_url: string;
+    about: string;
+    tech: string[];
+    date: string;
+    new?: boolean;
+    dev?: boolean;
+    links: Links;
+    language_code: string;
+    created_at?: Date;
+};
+
+export type LocalProjects = {
+    name: string;
+    image: string;
+    about: string;
+    tech: string[];
+    date: string;
+    new?: boolean;
+    dev?: boolean;
+    links: Links;
+};
+
+export type ProjectsApiResponse = {
+    projects: Projects[];
 };

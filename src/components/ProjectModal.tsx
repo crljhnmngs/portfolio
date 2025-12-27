@@ -1,5 +1,5 @@
 import { FaGithub, FaLink, FaTimes } from 'react-icons/fa';
-import { Project } from '~/types/global';
+import { Projects } from '~/types/global';
 import { useTranslation } from 'react-i18next';
 
 export const ProjectModal = ({
@@ -7,7 +7,7 @@ export const ProjectModal = ({
     isOpen,
     onClose,
 }: {
-    project: Project | null;
+    project: Projects | null;
     isOpen: boolean;
     onClose: () => void;
 }) => {
@@ -36,7 +36,7 @@ export const ProjectModal = ({
                     {project.name}
                 </h2>
                 <p className="mt-2 text-gray-700 dark:text-gray-300">
-                    {t(project.about)}
+                    {project.about}
                 </p>
                 <div className="mt-4">
                     <span className="font-semibold dark:text-white">

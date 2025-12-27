@@ -87,13 +87,13 @@ export const Education = () => {
                                     selectedLang === 'ar' && 'justify-end'
                                 }`}
                             >
-                                {t(education.school)}
+                                {education.school}
                             </h3>
                             <time className="block mb-3 text-sm font-normal leading-none text-gray-700 dark:text-gray-400">
-                                {t(education.track)}
+                                {education.track}
                             </time>
                             <p className="mb-4 text-base font-normal text-gray-700 dark:text-gray-400">
-                                {t(education.course)}
+                                {education.course}
                             </p>
                             <div
                                 className={`-mt-2 flex flex-wrap ${

@@ -16,7 +16,7 @@ import fun88 from './assets/images/fun88.webp';
 import boilerplate from './assets/images/personal_boilerplate.webp';
 import todo from './assets/images/todo.webp';
 import mern from './assets/images/mern.webp';
-import { Projects } from './types/global';
+import { LocalProjects } from './types/global';
 
 export const sections = [
     {
@@ -373,7 +373,7 @@ export const educations = [
     },
 ];
 
-export const projects: Projects[] = [
+export const projects: LocalProjects[] = [
     {
         name: 'Personal FullStack Boilerplate',
         image: mern,
