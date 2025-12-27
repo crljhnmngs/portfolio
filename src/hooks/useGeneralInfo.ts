@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../configs/api';
+import { apiCall } from '../configs/api';
 import { GeneralInfo, GeneralInfoApiResponse } from '../types/global';
 
 export const useGeneralInfo = () => {
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ['general-info'],
         queryFn: async () => {
-            const response = await api.get<GeneralInfoApiResponse>(
+            const response = await apiCall.get<GeneralInfoApiResponse>(
                 '/api/general-info'
             );
             return response.data;

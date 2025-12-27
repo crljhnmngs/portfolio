@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../configs/api';
+import { apiCall } from '../configs/api';
 import { LocalizedInfo, LocalizedInfoApiResponse } from '../types/global';
 
 export const useLocalizedInfoQuery = (
@@ -9,9 +9,9 @@ export const useLocalizedInfoQuery = (
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ['localized-info', generalInfoId, languageCode],
         queryFn: async () => {
-            const response = await api.get<LocalizedInfoApiResponse>(
+            const response = await apiCall.get<LocalizedInfoApiResponse>(
                 '/api/localized-info',
-                { params: { generalInfoId, languageCode } }
+                { generalInfoId, languageCode }
             );
             return response.data;
         },
