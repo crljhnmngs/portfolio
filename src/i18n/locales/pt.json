@@ -8,11 +8,11 @@
         "contact": "Contato"
     },
     "hero": {
-        "greeting": "Olá, eu sou Carl",
+        "greeting": "Olá, eu sou {{name}}",
         "roles": [
             "Engenheiro de Software",
-            "Desenvolvedor Front-End",
-            "Desenvolvedor Full Stack"
+            "Desenvolvedor Web Front-End",
+            "Desenvolvedor Web Full-Stack"
         ],
         "description": "Sou um Desenvolvedor Web Front-End / Full Stack. Atualmente trabalho na {{company}} como {{position}}.",
         "resume": "Currículo"
@@ -199,5 +199,24 @@
             "pt": "Português",
             "ar": "Árabe"
         }
+    },
+    "api": {
+        "error": "Falha ao carregar o conteúdo. Por favor, tente novamente mais tarde.",
+        "empty": "Nenhuma informação disponível."
+    },
+    "months": {
+        "Present": "Presente",
+        "January": "Janeiro {{year}}",
+        "February": "Fevereiro {{year}}",
+        "March": "Março {{year}}",
+        "April": "Abril {{year}}",
+        "May": "Maio {{year}}",
+        "June": "Junho {{year}}",
+        "July": "Julho {{year}}",
+        "August": "Agosto {{year}}",
+        "September": "Setembro {{year}}",
+        "October": "Outubro {{year}}",
+        "November": "Novembro {{year}}",
+        "December": "Dezembro {{year}}"
     }
 }

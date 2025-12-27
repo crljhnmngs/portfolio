@@ -2,31 +2,38 @@ import React, { useMemo, useState } from 'react';
 import { Popup } from '../animation/Popup';
 import { SlideLeft } from '../animation/Slide';
 import emailjs from '@emailjs/browser';
-import Loader from '@/assets/loading.svg?react';
-import { toast } from 'react-toastify';
-import { socials } from '../const';
 import { Footer } from '../layout/Footer';
 import { useTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
+import { useSocialLinks } from '../hooks/useSocialLinks';
+import { useApp } from '../contexts/AppContext';
+import { Loader } from './Loader';
+import toast from 'react-hot-toast';
+import { useLocalizedInfo } from '../contexts/LocalizedInfoContext';
 
 export default function Contact() {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const { t, i18n } = useTranslation();
+    const socials = useSocialLinks();
+    const { generalInfo } = useApp();
+    const {
+        localizedInfo,
+        isLoading: isLocalizedInfoLoading,
+        isError: isLocalizedInfoError,
+    } = useLocalizedInfo();
+    const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-    const memoizedData = useMemo(() => {
-        return socials;
-    }, []);
+        const form = e.currentTarget;
 
-    const sendEmail = (e: any) => {
         try {
-            e.persist();
-            e.preventDefault();
             setIsSubmitting(true);
+
             emailjs
                 .sendForm(
                     import.meta.env.VITE_SERVICE_ID || '',
                     import.meta.env.VITE_TEMPLATE_ID || '',
-                    e.target,
+                    form,
                     import.meta.env.VITE_EMAILJS_PUBLIC_KEY || ''
                 )
                 .then(
@@ -35,6 +42,7 @@ export default function Contact() {
                         toast.success('Message sent!', {
                             position: 'top-right',
                         });
+                        form.reset();
                     },
                     (error) => {
                         toast.error(
@@ -46,8 +54,6 @@ export default function Contact() {
                         setIsSubmitting(false);
                     }
                 );
-
-            e.target.reset();
         } catch (error) {
             console.log(error);
             toast.error('Something went wrong, please try again later', {
@@ -131,7 +137,13 @@ export default function Contact() {
                             </div>
                             <div className="flex justify-between mt-2 flex-col sm:flex-row">
                                 <div className="underline text-black dark:text-white">
-                                    <a href="mailto:manigoscarljohn@gmail.com">
+                                    <a
+                                        href={`mailto:${
+                                            generalInfo?.email
+                                                ? generalInfo?.email
+                                                : 'manigoscarljohn@gmail.com'
+                                        }`}
+                                    >
                                         {t('contact.directEmail')}
                                     </a>
                                 </div>
@@ -158,13 +170,19 @@ export default function Contact() {
                                 {t('contact.form.emailLabel')}
                             </p>
                             <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase">
-                                manigoscarljohn@gmail.com
+                                {generalInfo?.email
+                                    ? generalInfo?.email
+                                    : 'manigoscarljohn@gmail.com'}
                             </p>
                         </div>
                         <div className="flex flex-col mt-10">
                             <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase underline">
                                 <a
-                                    href={import.meta.env.VITE_CALENDLYURL}
+                                    href={
+                                        generalInfo?.scheduleLink
+                                            ? generalInfo?.scheduleLink
+                                            : import.meta.env.VITE_CALENDLYURL
+                                    }
                                     target="_blank"
                                 >
                                     {t('contact.scheduleLinkText')}
@@ -175,19 +193,30 @@ export default function Contact() {
                             <p className="text-xl sm:text-3xl font-bold text-gray-600 dark:text-gray-300">
                                 {t('contact.addressHeading')}
                             </p>
-                            <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase">
-                                <Trans
-                                    i18nKey="contact.address"
-                                    components={[<></>, <br />]}
-                                />
-                            </p>
+                            {isLocalizedInfoLoading ? (
+                                <div className="flex w-full justify-end">
+                                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded animate-pulse w-2/6" />
+                                </div>
+                            ) : isLocalizedInfoError ||
+                              !localizedInfo?.address ? (
+                                <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase">
+                                    <Trans
+                                        i18nKey="contact.address"
+                                        components={[<></>, <br />]}
+                                    />
+                                </p>
+                            ) : (
+                                <p className="mt-2 font-semibold text-blue-700 dark:text-blue-500 uppercase">
+                                    {localizedInfo?.address}
+                                </p>
+                            )}
                         </div>
                         <div className="flex flex-col mt-11">
                             <p className="text-xl sm:text-3xl font-bold text-gray-600 dark:text-gray-300">
                                 {t('contact.socialsHeading')}
                             </p>
                             <div className="flex justify-start lg:justify-end gap-3 mt-3">
-                                {memoizedData.map((social) => (
+                                {socials.map((social) => (
                                     <div
                                         className="w-full h-full max-w-10 max-h-10"
                                         key={social.name}

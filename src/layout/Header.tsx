@@ -1,36 +1,36 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import Hamburger from 'hamburger-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import { sections } from '../const';
 import { SettingsToggle } from '../components/SettingsToggle';
-import { useUIStore } from '../store/uiStore';
+import { useUIStore } from '../stores/uiStore';
+import { useLanguageStore } from '../stores/languageStore';
 
 export default function Header() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
+    const selectedLang = useLanguageStore((state) => state.selectedLang);
     const isOpen = useUIStore((state) => state.isNavbarOpen);
     const toggleNavbar = useUIStore((state) => state.toggleNavbar);
-
-    const memoizedData = useMemo(() => sections, []);
 
     return (
         <React.Fragment>
             <nav
                 className={`bg-white dark:bg-gray-700 sticky z-50 w-full h-[70px] flex max-screen:justify-center top-0 
                     ${
-                        i18n.language === 'ceb' || i18n.language === 'fr'
+                        selectedLang === 'ceb' || selectedLang === 'fr'
                             ? 'navCeb:px-16'
-                            : i18n.language === 'fil'
+                            : selectedLang === 'fil'
                             ? 'navFil:px-16'
-                            : i18n.language === 'es'
+                            : selectedLang === 'es'
                             ? 'navEs:px-16'
-                            : i18n.language === 'ja'
+                            : selectedLang === 'ja'
                             ? 'navJp:px-16'
-                            : i18n.language === 'pt'
+                            : selectedLang === 'pt'
                             ? 'navPt:px-16'
                             : 'nav:px-16'
-                    } px-5 shadow-lg} px-5 shadow-lg`}
+                    } px-5 shadow-lg`}
             >
                 <div className="w-full max-screen:max-w-maxDesktop h-full flex flex-row justify-between items-center">
                     <div>
@@ -46,67 +46,66 @@ export default function Header() {
                     </div>
                     <div
                         className={`${
-                            i18n.language === 'ceb' || i18n.language === 'fr'
+                            selectedLang === 'ceb' || selectedLang === 'fr'
                                 ? 'navCeb:flex'
-                                : i18n.language === 'fil'
+                                : selectedLang === 'fil'
                                 ? 'navFil:flex'
-                                : i18n.language === 'es'
+                                : selectedLang === 'es'
                                 ? 'navEs:flex'
-                                : i18n.language === 'ja'
+                                : selectedLang === 'ja'
                                 ? 'navJp:flex'
-                                : i18n.language === 'pt'
+                                : selectedLang === 'pt'
                                 ? 'navPt:flex'
                                 : 'nav:flex'
-                        } gap-4 mt-1 } gap-4 mt-1`}
+                        } gap-4 mt-1`}
                     >
                         <div
                             className={`width-auto hidden ${
-                                i18n.language === 'ceb' ||
-                                i18n.language === 'fr'
+                                selectedLang === 'ceb' || selectedLang === 'fr'
                                     ? 'navCeb:flex'
-                                    : i18n.language === 'fil'
+                                    : selectedLang === 'fil'
                                     ? 'navFil:flex'
-                                    : i18n.language === 'es'
+                                    : selectedLang === 'es'
                                     ? 'navEs:flex'
-                                    : i18n.language === 'ja'
+                                    : selectedLang === 'ja'
                                     ? 'navJp:flex'
-                                    : i18n.language === 'pt'
+                                    : selectedLang === 'pt'
                                     ? 'navPt:flex'
                                     : 'nav:flex'
-                            } gap-4 mt-1 } w-full`}
+                            } gap-4 mt-1 w-full`}
                         >
                             <ul
                                 className={`flex ${
-                                    i18n.language === 'ceb' ||
-                                    i18n.language === 'fr'
+                                    selectedLang === 'ceb' ||
+                                    selectedLang === 'fr'
                                         ? 'navCeb:flex-row'
-                                        : i18n.language === 'fil'
+                                        : selectedLang === 'fil'
                                         ? 'navFil:flex-row'
-                                        : i18n.language === 'es'
+                                        : selectedLang === 'es'
                                         ? 'navEs:flex-row'
-                                        : i18n.language === 'ja'
+                                        : selectedLang === 'ja'
                                         ? 'navJp:flex-row'
-                                        : i18n.language === 'pt'
+                                        : selectedLang === 'pt'
                                         ? 'navPt:flex-row'
                                         : 'nav:flex-row'
-                                }  flex-col items-center ${
-                                    i18n.language === 'ceb' ||
-                                    i18n.language === 'fr'
+                                } flex-col items-center ${
+                                    selectedLang === 'ceb' ||
+                                    selectedLang === 'fr'
                                         ? 'navCeb:gap-3'
-                                        : i18n.language === 'fil'
+                                        : selectedLang === 'fil'
                                         ? 'navFil:gap-3'
-                                        : i18n.language === 'es'
+                                        : selectedLang === 'es'
                                         ? 'navEs:gap-3'
-                                        : i18n.language === 'ja'
+                                        : selectedLang === 'ja'
                                         ? 'navJp:gap-3'
-                                        : i18n.language === 'pt'
+                                        : selectedLang === 'pt'
                                         ? 'navPt:gap-3'
                                         : 'nav:gap-3'
                                 } gap-1 ${
-                                    i18n.language === 'ar' && 'font-arabic'
+                                    selectedLang === 'ar' && 'font-arabic'
                                 }`}
                             >
-                                {memoizedData.map((section) => (
+                                {sections.map((section) => (
                                     <li
                                         key={section.nameKey}
                                         className="cursor-pointer"
@@ -126,36 +125,35 @@ export default function Header() {
                             </ul>
                         </div>
                         <div
-                            className={`flex items-center  ${
-                                i18n.language === 'ceb' ||
-                                i18n.language === 'fr'
+                            className={`flex items-center ${
+                                selectedLang === 'ceb' || selectedLang === 'fr'
                                     ? 'navCeb:gap-2'
-                                    : i18n.language === 'fil'
+                                    : selectedLang === 'fil'
                                     ? 'navFil:gap-2'
-                                    : i18n.language === 'es'
+                                    : selectedLang === 'es'
                                     ? 'navEs:gap-2'
-                                    : i18n.language === 'ja'
+                                    : selectedLang === 'ja'
                                     ? 'navJp:gap-2'
-                                    : i18n.language === 'pt'
+                                    : selectedLang === 'pt'
                                     ? 'navPt:gap-2'
                                     : 'nav:gap-2'
                             } gap-1`}
                         >
                             <div>
-                                <SettingsToggle language={i18n.language} />
+                                <SettingsToggle />
                             </div>
                             <div
-                                className={`flex  ${
-                                    i18n.language === 'ceb' ||
-                                    i18n.language === 'fr'
+                                className={`flex ${
+                                    selectedLang === 'ceb' ||
+                                    selectedLang === 'fr'
                                         ? 'navCeb:hidden'
-                                        : i18n.language === 'fil'
+                                        : selectedLang === 'fil'
                                         ? 'navFil:hidden'
-                                        : i18n.language === 'es'
+                                        : selectedLang === 'es'
                                         ? 'navEs:hidden'
-                                        : i18n.language === 'ja'
+                                        : selectedLang === 'ja'
                                         ? 'navJp:hidden'
-                                        : i18n.language === 'pt'
+                                        : selectedLang === 'pt'
                                         ? 'navPt:hidden'
                                         : 'nav:hidden'
                                 } dark:text-white`}
@@ -178,19 +176,19 @@ export default function Header() {
                         animate={{ x: 0, transition: { type: 'spring' } }}
                         exit={{ x: 200, transition: { type: 'spring' } }}
                         className={`bg-white ${
-                            i18n.language === 'ceb' || i18n.language === 'fr'
+                            selectedLang === 'ceb' || selectedLang === 'fr'
                                 ? 'navCeb:hidden'
-                                : i18n.language === 'fil'
+                                : selectedLang === 'fil'
                                 ? 'navFil:hidden'
-                                : i18n.language === 'es'
+                                : selectedLang === 'es'
                                 ? 'navEs:hidden'
-                                : i18n.language === 'ja'
+                                : selectedLang === 'ja'
                                 ? 'navJp:hidden'
-                                : i18n.language === 'pt'
+                                : selectedLang === 'pt'
                                 ? 'navPt:hidden'
                                 : 'nav:hidden'
                         } dark:bg-gray-700 p-2 z-50 fixed top-[70px] mt-2 rounded-lg shadow-lg right-2 block w-40 h-auto ${
-                            i18n.language === 'ar' && 'font-arabic'
+                            selectedLang === 'ar' && 'font-arabic'
                         }`}
                     >
                         <ul className="flex flex-col gap-2 text-md font-medium">
@@ -203,7 +201,7 @@ export default function Header() {
                                     spy={true}
                                     smooth={true}
                                     offset={-70}
-                                    onClick={() => toggleNavbar}
+                                    onClick={toggleNavbar}
                                 >
                                     <li>{t(section.nameKey)}</li>
                                 </Link>

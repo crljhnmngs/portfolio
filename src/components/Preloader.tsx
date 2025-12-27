@@ -1,22 +1,47 @@
 import React, { useEffect, useState } from 'react';
 
-export const Preloader = () => {
+type PreloaderProps = {
+    isDataLoaded: boolean;
+    minDisplayTime?: number;
+    onComplete?: () => void;
+};
+
+export const Preloader = ({
+    isDataLoaded,
+    minDisplayTime = 3000,
+    onComplete,
+}: PreloaderProps) => {
     const [isShowLoader, setShowLoader] = useState<boolean>(true);
     const [isHidden, setHidden] = useState<boolean>(false);
-    const { body } = document;
+    const [startTime] = useState<number>(Date.now());
 
     useEffect(() => {
-        body.style.overflow = 'hidden';
-        const timer = setTimeout(() => {
-            setShowLoader(false);
+        document.body.style.overflow = 'hidden';
+
+        // Only start closing when data is loaded
+        if (isDataLoaded) {
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+
             const timer = setTimeout(() => {
-                setHidden(true);
-                body.style.overflow = 'auto';
-            }, 800);
+                setShowLoader(false);
+
+                const hideTimer = setTimeout(() => {
+                    setHidden(true);
+                    document.body.style.overflow = 'auto';
+                    onComplete?.();
+                }, 800);
+
+                return () => clearTimeout(hideTimer);
+            }, remainingTime);
+
             return () => clearTimeout(timer);
-        }, 3000);
-        return () => clearTimeout(timer);
-    }, [body.style]);
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isDataLoaded, startTime, minDisplayTime, onComplete]);
 
     return (
         <div

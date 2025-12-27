@@ -1,31 +1,45 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguageStore } from '../stores/languageStore';
+import { useApp } from '../contexts/AppContext';
 
-const languages = [
-    { code: 'en', flag: '/flags/en.webp' },
-    { code: 'ceb', flag: '/flags/ph.webp' },
-    { code: 'fil', flag: '/flags/ph.webp' },
-    { code: 'es', flag: '/flags/es.webp' },
-    { code: 'fr', flag: '/flags/fr.webp' },
-    { code: 'zh', flag: '/flags/cn.webp' },
-    { code: 'ja', flag: '/flags/jp.webp' },
-    { code: 'pt', flag: '/flags/pt.webp' },
-    { code: 'ar', flag: '/flags/ar.webp' },
-];
+const flagMap: Record<string, string> = {
+    en: '/flags/en.webp',
+    ceb: '/flags/ph.webp',
+    fil: '/flags/ph.webp',
+    es: '/flags/es.webp',
+    fr: '/flags/fr.webp',
+    zh: '/flags/cn.webp',
+    ja: '/flags/jp.webp',
+    pt: '/flags/pt.webp',
+    ar: '/flags/ar.webp',
+};
 
 export const LanguageSwitcher = () => {
-    const { i18n, t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const { languages } = useApp();
+    const selectedLang = useLanguageStore((state) => state.selectedLang);
+    const setSelectedLang = useLanguageStore((state) => state.setSelectedLang);
+
     const [isOpen, setIsOpen] = useState(false);
-    const currentLang =
-        languages.find((l) => l.code === i18n.language) || languages[0];
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const currentLang =
+        languages.find((l) => l.code === selectedLang) || languages[0];
 
     const toggleDropdown = () => setIsOpen((open) => !open);
 
     const handleLanguageChange = (code: string) => {
+        setSelectedLang(code);
         i18n.changeLanguage(code);
         setIsOpen(false);
     };
+
+    useEffect(() => {
+        if (selectedLang && i18n.language !== selectedLang) {
+            i18n.changeLanguage(selectedLang);
+        }
+    }, [selectedLang, i18n]);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -41,6 +55,10 @@ export const LanguageSwitcher = () => {
             document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    if (!languages.length || !currentLang) {
+        return null;
+    }
+
     return (
         <div className="relative inline-block text-left" ref={dropdownRef}>
             <button
@@ -51,8 +69,8 @@ export const LanguageSwitcher = () => {
                 type="button"
             >
                 <img
-                    src={currentLang.flag}
-                    alt={t(`translation.languages.${currentLang.code}`)}
+                    src={flagMap[currentLang.code] || '/flags/en.webp'}
+                    alt={currentLang.name}
                     className="rounded-full"
                     style={{
                         aspectRatio: '24/24',
@@ -70,20 +88,20 @@ export const LanguageSwitcher = () => {
                     <div className="py-1">
                         <div
                             className={`px-4 py-2 text-sm ${
-                                i18n.language === 'ar' && 'text-right'
+                                selectedLang === 'ar' && 'text-right'
                             } text-gray-700 dark:text-gray-300 font-semibold border-b border-gray-200 dark:border-gray-700`}
                         >
-                            {t('translation.select')}
+                            Select Language
                         </div>
                         {languages.map((lang) => {
-                            const isSelected = lang.code === currentLang.code;
+                            const isSelected = lang.code === selectedLang;
                             return (
                                 <button
                                     key={lang.code}
                                     onClick={() =>
                                         handleLanguageChange(lang.code)
                                     }
-                                    className={`w-full text-right flex items-center gap-2 px-4 py-2 text-sm ${
+                                    className={`w-full text-left flex items-center gap-2 px-4 py-2 text-sm ${
                                         isSelected
                                             ? 'bg-blue-500 text-white font-semibold'
                                             : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
@@ -91,10 +109,11 @@ export const LanguageSwitcher = () => {
                                     type="button"
                                 >
                                     <img
-                                        src={lang.flag}
-                                        alt={t(
-                                            `translation.languages.${lang.code}`
-                                        )}
+                                        src={
+                                            flagMap[lang.code] ||
+                                            '/flags/en.webp'
+                                        }
+                                        alt={lang.name}
                                         className="rounded-full"
                                         style={{
                                             aspectRatio: '24/24',

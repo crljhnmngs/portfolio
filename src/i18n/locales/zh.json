@@ -8,8 +8,8 @@
         "contact": "联系"
     },
     "hero": {
-        "greeting": "你好，我是Carl",
-        "roles": ["软件工程师", "前端开发工程师", "全栈开发工程师"],
+        "greeting": "你好，我是{{name}}",
+        "roles": ["软件工程师", "前端网页开发工程师", "全栈网页开发工程师"],
         "description": "我是一名前端 / 全栈网页开发人员。目前我在{{company}}担任{{position}}。",
         "resume": "简历"
     },
@@ -195,5 +195,24 @@
             "pt": "葡萄牙语",
             "ar": "阿拉伯语"
         }
+    },
+    "api": {
+        "error": "加载内容失败。请稍后再试。",
+        "empty": "没有可用信息。"
+    },
+    "months": {
+        "Present": "至今",
+        "January": "{{year}}年1月",
+        "February": "{{year}}年2月",
+        "March": "{{year}}年3月",
+        "April": "{{year}}年4月",
+        "May": "{{year}}年5月",
+        "June": "{{year}}年6月",
+        "July": "{{year}}年7月",
+        "August": "{{year}}年8月",
+        "September": "{{year}}年9月",
+        "October": "{{year}}年10月",
+        "November": "{{year}}年11月",
+        "December": "{{year}}年12月"
     }
 }

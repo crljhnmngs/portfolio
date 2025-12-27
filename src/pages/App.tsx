@@ -1,30 +1,48 @@
-import React, { Suspense } from 'react';
+import React, { useEffect } from 'react';
 import Home from '../components/Home';
 import About from '../components/About';
 import Header from '../layout/Header';
 import Timeline from '../components/Timeline';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
-import { Preloader } from '../components/Preloader';
 import Projects from '../components/Projects';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { AppInitializer } from '../components/AppInitializer';
+import { AppProvider } from '../contexts/AppContext';
+import { useLanguageStore } from '../stores/languageStore';
+import { LocalizedInfoProvider } from '../contexts/LocalizedInfoContext';
 
 export default function App() {
+    const setSelectedLang = useLanguageStore((state) => state.setSelectedLang);
+
+    const handleLanguageLoaded = (code: string) => {
+        const storedLang = localStorage.getItem('portfolio_selected_language');
+        if (!storedLang) {
+            setSelectedLang(code);
+        }
+    };
+
+    // Hydrate the store on mount
+    useEffect(() => {
+        useLanguageStore.persist.rehydrate();
+    }, []);
+
     return (
-        <Suspense fallback={<Preloader />}>
-            <div className="font-poppins">
-                <Header></Header>
-                <div className="overflow-hidden ">
-                    <Home></Home>
-                    <About></About>
-                    <Skills></Skills>
-                    <Timeline></Timeline>
-                    <Projects></Projects>
-                    <Contact></Contact>
-                </div>
-                <ToastContainer />
-            </div>
-        </Suspense>
+        <AppInitializer onLanguageLoaded={handleLanguageLoaded}>
+            <AppProvider>
+                <LocalizedInfoProvider>
+                    <div className="font-poppins">
+                        <Header />
+                        <div className="overflow-hidden">
+                            <Home />
+                            <About />
+                            <Skills />
+                            <Timeline />
+                            <Projects />
+                            <Contact />
+                        </div>
+                    </div>
+                </LocalizedInfoProvider>
+            </AppProvider>
+        </AppInitializer>
     );
 }

@@ -16,9 +16,7 @@ import fun88 from './assets/images/fun88.webp';
 import boilerplate from './assets/images/personal_boilerplate.webp';
 import todo from './assets/images/todo.webp';
 import mern from './assets/images/mern.webp';
-import { Project } from './types/global';
-
-const iconStyleClass: string = 'hover:scale-[1.18] size-full';
+import { LocalProjects } from './types/global';
 
 export const sections = [
     {
@@ -191,34 +189,6 @@ export const skills = [
     {
         name: 'Figma',
         link: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/figma/figma-original.svg',
-    },
-];
-
-export const socials = [
-    {
-        name: 'github',
-        link: 'https://github.com/crljhnmngs',
-        icon: <FaGithub className={iconStyleClass} />,
-    },
-    {
-        name: 'linkedin',
-        link: 'https://www.linkedin.com/in/crljhnmngs/',
-        icon: <FaLinkedin className={iconStyleClass} />,
-    },
-    {
-        name: 'facebook',
-        link: 'https://www.facebook.com/crljhnmngs',
-        icon: <FaFacebook className={iconStyleClass} />,
-    },
-    {
-        name: 'instagram',
-        link: 'https://instagram.com/crljhnmngs',
-        icon: <FaInstagram className={iconStyleClass} />,
-    },
-    {
-        name: 'twitter',
-        link: 'https://twitter.com/crljhnmngs',
-        icon: <FaSquareXTwitter className={iconStyleClass} />,
     },
 ];
 
@@ -403,7 +373,7 @@ export const educations = [
     },
 ];
 
-export const projects: Project[] = [
+export const projects: LocalProjects[] = [
     {
         name: 'Personal FullStack Boilerplate',
         image: mern,

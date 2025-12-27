@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Me from '../assets/images/me.webp';
 import moment from 'moment';
 import { SlideLeft, SlideRight } from '../animation/Slide';
 import { Popup } from '../animation/Popup';
 import ImageWithFallback from '../utils/ImageWithFallback';
 import { useTranslation } from 'react-i18next';
+import { useLocalizedInfo } from '../contexts/LocalizedInfoContext';
+import draftToHtml from 'draftjs-to-html';
 
 export default function About() {
     const age = moment().diff(import.meta.env.VITE_DATEOFBIRTH, 'years');
@@ -14,6 +16,27 @@ export default function About() {
             .diff(import.meta.env.VITE_YEARSOFEXPERIENCE, 'years', true)
             .toFixed(1)
     );
+    const { localizedInfo, isLoading, isError } = useLocalizedInfo();
+
+    const aboutHtml = useMemo(() => {
+        if (isLoading || isError || !localizedInfo?.about_me) {
+            return '';
+        }
+
+        try {
+            const rawContent =
+                typeof localizedInfo.about_me === 'string'
+                    ? JSON.parse(localizedInfo.about_me)
+                    : localizedInfo.about_me;
+
+            return draftToHtml(rawContent)
+                .replace('{age}', age.toString())
+                .replace('{experience}', yearsOfExperience.toString());
+        } catch (err) {
+            console.error('about_me parse error', err);
+            return '';
+        }
+    }, [isLoading, isError, localizedInfo?.about_me, age, yearsOfExperience]);
 
     return (
         <section
@@ -52,20 +75,34 @@ export default function About() {
                         className="w-full sm:w-[80%] home:w-1/2 h-auto about:h-full pt-0 flex items-center aboutMaxHeight:pt-10"
                         delay={0.5}
                     >
-                        <p className="text-black text-base dark:text-white text-justify pb-6 leading-relaxed">
-                            {t('about.intro', { age, yearsOfExperience })}
-                            <br />
-                            {t('about.journey')}
-                            <br />
-                            <br />
-                            {t('about.commitment')}
-                            <br />
-                            <br />
-                            {t('about.traits')}
-                            <br />
-                            <br />
-                            {t('about.hobbies')}
-                        </p>
+                        <div className="pb-6 w-full">
+                            {isLoading ? (
+                                <div className="w-full max-w-3xl space-y-3">
+                                    <div className="h-4 w-full bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                                    <div className="h-4 w-[90%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                                    <div className="h-4 w-[95%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                                    <div className="h-4 w-[80%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                                    <div className="h-4 w-[85%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                                    <div className="h-4 w-[85%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                                    <div className="h-4 w-[85%] bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                                </div>
+                            ) : isError ? (
+                                <div className="text-red-700 dark:text-red-500 text-base text-center">
+                                    <p>{t('api.error')}</p>
+                                </div>
+                            ) : !aboutHtml || aboutHtml.trim() === '' ? (
+                                <div className="text-black text-base dark:text-white text-center">
+                                    {t('api.empty')}
+                                </div>
+                            ) : (
+                                <div
+                                    className="text-black text-base dark:text-white text-justify leading-relaxed"
+                                    dangerouslySetInnerHTML={{
+                                        __html: aboutHtml,
+                                    }}
+                                />
+                            )}
+                        </div>
                     </SlideRight>
                 </div>
             </div>

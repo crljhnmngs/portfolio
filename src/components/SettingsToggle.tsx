@@ -1,18 +1,15 @@
-import { useState } from 'react';
 import { FaCog } from 'react-icons/fa';
-import { useThemeSwitcher } from '../hook/useThemeSwitcher';
+import { useThemeSwitcher } from '../hooks/useThemeSwitcher';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { useUIStore } from '../store/uiStore';
+import { useUIStore } from '../stores/uiStore';
+import { useLanguageStore } from '../stores/languageStore';
 
-type SettingsToggleProps = {
-    language: string;
-};
-
-export const SettingsToggle = ({ language }: SettingsToggleProps) => {
+export const SettingsToggle = () => {
     const [theme, setTheme] = useThemeSwitcher();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
+    const selectedLang = useLanguageStore((state) => state.selectedLang);
     const isOpen = useUIStore((state) => state.isSettingsOpen);
     const toggleSettings = useUIStore((state) => state.toggleSettings);
 
@@ -25,6 +22,24 @@ export const SettingsToggle = ({ language }: SettingsToggleProps) => {
             }
         } catch (error) {
             console.log('Error switching theme');
+        }
+    };
+
+    const getResponsiveClass = () => {
+        switch (selectedLang) {
+            case 'ceb':
+            case 'fr':
+                return 'navCeb:-right-14';
+            case 'fil':
+                return 'navFil:-right-14';
+            case 'es':
+                return 'navEs:-right-14';
+            case 'ja':
+                return 'navJp:-right-14';
+            case 'pt':
+                return 'navPt:-right-14';
+            default:
+                return 'nav:-right-14';
         }
     };
 
@@ -55,20 +70,7 @@ export const SettingsToggle = ({ language }: SettingsToggleProps) => {
                             scale: 0.95,
                             transition: { duration: 0.2 },
                         }}
-                        className={`absolute -right-16 nav: 
-                            ${
-                                language === 'ceb' || language === 'fr'
-                                    ? 'navCeb:-right-14'
-                                    : language === 'fil'
-                                    ? 'navFil:-right-14'
-                                    : language === 'es'
-                                    ? 'navEs:-right-14'
-                                    : language === 'ja'
-                                    ? 'navJp:-right-14'
-                                    : language === 'pt'
-                                    ? 'navPt:-right-14'
-                                    : 'nav:-right-14'
-                            }  mt-4 w-56 p-4 bg-white dark:bg-gray-700 shadow-xl rounded-lg z-50 flex justify-center flex-col gap-3`}
+                        className={`absolute -right-16 ${getResponsiveClass()} mt-4 w-56 p-4 bg-white dark:bg-gray-700 shadow-xl rounded-lg z-50 flex justify-center flex-col gap-3`}
                     >
                         <div className="flex justify-center">
                             <div
@@ -86,7 +88,7 @@ export const SettingsToggle = ({ language }: SettingsToggleProps) => {
                         </div>
                         <div
                             className={`w-full ${
-                                i18n.language === 'ar' && 'font-arabic'
+                                selectedLang === 'ar' && 'font-arabic'
                             }`}
                         >
                             <h1 className="text-black dark:text-white text-base">
