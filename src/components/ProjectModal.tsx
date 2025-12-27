@@ -1,5 +1,5 @@
 import { FaGithub, FaLink, FaTimes } from 'react-icons/fa';
-import { Projects } from '~/types/global';
+import { Projects } from '../types/global';
 import { useTranslation } from 'react-i18next';
 
 export const ProjectModal = ({
