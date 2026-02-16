@@ -151,6 +151,7 @@ export default function Home() {
                             href={generalInfo?.resumeUrl || '/'}
                             target="_blank"
                             rel="noopener noreferrer"
+                            data-umami-event="Resume Opened"
                             className={`home:w-[80%] w-[50%] max-w-56 h-[60px] text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base px-8 py-3 me-2 focus:outline-none inline-flex items-center justify-center ${
                                 i18n.language === 'ar' && 'text-right'
                             }`}
