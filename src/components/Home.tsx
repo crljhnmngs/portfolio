@@ -140,6 +140,7 @@ export default function Home() {
                                     href={social.link}
                                     target="_blank"
                                     rel="noreferrer"
+                                    data-umami-event={`${social.name.charAt(0).toUpperCase() + social.name.slice(1)} Click`}
                                 >
                                     {social.icon}
                                 </a>

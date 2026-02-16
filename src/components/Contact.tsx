@@ -34,7 +34,7 @@ export default function Contact() {
                     import.meta.env.VITE_SERVICE_ID || '',
                     import.meta.env.VITE_TEMPLATE_ID || '',
                     form,
-                    import.meta.env.VITE_EMAILJS_PUBLIC_KEY || ''
+                    import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
                 )
                 .then(
                     (result) => {
@@ -49,10 +49,10 @@ export default function Contact() {
                             'Something went wrong, please try again later',
                             {
                                 position: 'top-right',
-                            }
+                            },
                         );
                         setIsSubmitting(false);
-                    }
+                    },
                 );
         } catch (error) {
             console.log(error);
@@ -103,7 +103,7 @@ export default function Contact() {
                                     type="text"
                                     className="bg-gray-700 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder={t(
-                                        'contact.form.namePlaceholder'
+                                        'contact.form.namePlaceholder',
                                     )}
                                     required
                                 />
@@ -117,7 +117,7 @@ export default function Contact() {
                                     type="email"
                                     className="bg-gray-700 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder={t(
-                                        'contact.form.emailPlaceholder'
+                                        'contact.form.emailPlaceholder',
                                     )}
                                     required
                                 />
@@ -130,7 +130,7 @@ export default function Contact() {
                                     name="message"
                                     className="bg-gray-700 border border-gray-300 text-white h-28 w-full text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
                                     placeholder={t(
-                                        'contact.form.messagePlaceholder'
+                                        'contact.form.messagePlaceholder',
                                     )}
                                     required
                                 />
@@ -225,6 +225,7 @@ export default function Contact() {
                                             href={social.link}
                                             target="_blank"
                                             rel="noreferrer"
+                                            data-umami-event={`${social.name.charAt(0).toUpperCase() + social.name.slice(1)} Click`}
                                             className="text-black dark:text-white"
                                         >
                                             {social.icon}
